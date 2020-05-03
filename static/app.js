@@ -14,7 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var keycloak = new Phasetwo();
+const config = {
+  realm: 'quickstart',
+  url: 'http://localhost:8180/auth/',
+  sslRequired: 'external',
+  clientId: 'app-html5',
+  publicClient: true,
+  confidentialPort: 0,
+};
+
+// var ph2 = new Keycloak();
+// var ph2 = new Phasetwo({ ...config, secretOption: 'hello' });
+var ph2 = new Phasetwo();
 var serviceUrl = 'http://localhost:3000/service';
 
 function notAuthenticated() {
@@ -25,7 +36,7 @@ function notAuthenticated() {
 function authenticated() {
   document.getElementById('not-authenticated').style.display = 'none';
   document.getElementById('authenticated').style.display = 'block';
-  document.getElementById('message').innerHTML = 'User: ' + keycloak.tokenParsed['preferred_username'];
+  document.getElementById('message').innerHTML = 'User: ' + ph2.tokenParsed['preferred_username'];
 }
 
 function request(endpoint) {
@@ -34,8 +45,8 @@ function request(endpoint) {
     var output = document.getElementById('message');
     req.open('GET', serviceUrl + '/' + endpoint, true);
 
-    if (keycloak.authenticated) {
-      req.setRequestHeader('Authorization', 'Bearer ' + keycloak.token);
+    if (ph2.authenticated) {
+      req.setRequestHeader('Authorization', 'Bearer ' + ph2.token);
     }
 
     req.onreadystatechange = function () {
@@ -53,16 +64,24 @@ function request(endpoint) {
     req.send();
   };
 
-  if (keycloak.authenticated) {
-    keycloak.updateToken(30).success(req);
+  if (ph2.authenticated) {
+    var promise = ph2.updateToken(30);
+    if (!promise.then) {
+      promise.then = promise.success;
+    }
+    promise.then(req);
   } else {
     req();
   }
 }
 
 window.onload = function () {
-  keycloak.init({ onLoad: 'check-sso', checkLoginIframeInterval: 1 }).success(function () {
-    if (keycloak.authenticated) {
+  var promise = ph2.init({ onLoad: 'check-sso', checkLoginIframeInterval: 1 });
+  if (!promise.then) {
+    promise.then = promise.success;
+  }
+  promise.then(function () {
+    if (ph2.authenticated) {
       authenticated();
     } else {
       notAuthenticated();
@@ -72,4 +91,4 @@ window.onload = function () {
   });
 };
 
-keycloak.onAuthLogout = notAuthenticated;
+ph2.onAuthLogout = notAuthenticated;
