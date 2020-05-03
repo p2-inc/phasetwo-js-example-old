@@ -78,12 +78,8 @@ hr {
 }
 
 .wrapper {
-  position: absolute;
-  height: 230px;
+  margin: 0 auto;
   width: 640px;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translateX(-50%) translatey(-50%);
 }
 
 .error {
