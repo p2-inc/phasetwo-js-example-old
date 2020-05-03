@@ -2325,27 +2325,38 @@ var Phasetwo = (function () {
 	});
 
 	class Phasetwo extends keycloak {
+	  super_ = {
+	    login: this.login,
+	    logout: this.logout,
+	  };
+
 	  constructor(config) {
 	    super(config);
 
-	    this.soma = 'perplexed';
+	    console.log('config', config);
+
+	    if (config && config.secretOption) {
+	      console.log('🔥 You provided a secret config option. Nice.');
+	    }
+
+	    this.augment = 'new field';
 
 	    console.log('👌 Built Phasetwo object.');
 	  }
 
-	  getSoma() {
-	    return 'got ' + this.soma;
+	  getAugment() {
+	    return 'Keycloak object was augmented with: ' + this.augment;
 	  }
 
-	  login(options) {
+	  login = (options) => {
 	    console.log('➡️ Phase Two logging in!');
-	    return super.login(options);
-	  }
+	    return this.super_.login(options);
+	  };
 
-	  logout(options) {
+	  logout = (options) => {
 	    console.log('⬅️ Phase Two logging out!');
-	    return super.logout(options);
-	  }
+	    return this.super_.logout(options);
+	  };
 
 	  getConfig() {
 	    // return the config object
