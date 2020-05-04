@@ -14,6 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import Phasetwo from 'phasetwo-js';
+
 const config = {
   realm: 'quickstart',
   url: 'http://localhost:8180/auth/',
@@ -24,8 +26,9 @@ const config = {
 };
 
 // var ph2 = new Keycloak();
-// var ph2 = new Phasetwo({ ...config, secretOption: 'hello' });
-var ph2 = new Phasetwo();
+var ph2 = new Phasetwo({ ...config, secretOption: 'hello' });
+window.ph2 = ph2;
+// var ph2 = new Phasetwo();
 var serviceUrl = 'http://localhost:3000/service';
 
 function notAuthenticated() {
