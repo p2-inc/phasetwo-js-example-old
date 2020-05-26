@@ -1,10 +1,10 @@
 {
-  "name": "phasetwo-test",
+  "name": "phasetwo-js-example",
   "version": "1.0.0",
-  "description": "",
+  "description": "An example web application showing usage of phasetwo-js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/p2-inc/phasetwo-test.git"
+    "url": "https://github.com/p2-inc/phasetwo-js-example.git"
   },
   "main": "index.js",
   "scripts": {
