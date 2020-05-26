@@ -15,7 +15,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "phasetwo-js": "git://github.com/p2-inc/phasetwo-js.git"
   },
   "devDependencies": {
     "webpack": "^4.43.0",
