@@ -25,37 +25,42 @@ const config = {
   confidentialPort: 0,
 };
 
-// var ph2 = new Keycloak();
-var ph2 = new Phasetwo({ ...config, secretOption: 'hello' });
-window.ph2 = ph2;
-// var ph2 = new Phasetwo();
-var serviceUrl = 'http://localhost:3000/service';
+const p2 = new Phasetwo({
+  ...config,
+  secretOption: 'hello',
+  augment: 'alsoHello',
+});
 
-function notAuthenticated() {
+// exposing globally for ease of console debugging
+window.p2 = p2;
+const serviceUrl = 'http://localhost:3000/service';
+
+window.notAuthenticated = function notAuthenticated() {
   document.getElementById('not-authenticated').style.display = 'block';
   document.getElementById('authenticated').style.display = 'none';
-}
+};
 
-function authenticated() {
+window.authenticated = function authenticated() {
   document.getElementById('not-authenticated').style.display = 'none';
   document.getElementById('authenticated').style.display = 'block';
-  document.getElementById('message').innerHTML = 'User: ' + ph2.tokenParsed['preferred_username'];
-}
+  document.getElementById('message').innerHTML = 'User: ' + p2.tokenParsed['preferred_username'];
+};
 
-function request(endpoint) {
+window.request = function request(endpoint) {
   var req = function () {
     var req = new XMLHttpRequest();
     var output = document.getElementById('message');
     req.open('GET', serviceUrl + '/' + endpoint, true);
 
-    if (ph2.authenticated) {
-      req.setRequestHeader('Authorization', 'Bearer ' + ph2.token);
+    if (p2.authenticated) {
+      req.setRequestHeader('Authorization', 'Bearer ' + p2.token);
     }
 
     req.onreadystatechange = function () {
       if (req.readyState == 4) {
         if (req.status == 200) {
-          output.innerHTML = 'Message: ' + JSON.parse(req.responseText).message;
+          output.innerHTML =
+            'Message: <pre>' + JSON.stringify(JSON.parse(req.responseText).message, null, 2) + '</pre>';
         } else if (req.status == 0) {
           output.innerHTML = '<span class="error">Request failed</span>';
         } else {
@@ -67,8 +72,8 @@ function request(endpoint) {
     req.send();
   };
 
-  if (ph2.authenticated) {
-    var promise = ph2.updateToken(30);
+  if (p2.authenticated) {
+    var promise = p2.updateToken(30);
     if (!promise.then) {
       promise.then = promise.success;
     }
@@ -76,15 +81,15 @@ function request(endpoint) {
   } else {
     req();
   }
-}
+};
 
 window.onload = function () {
-  var promise = ph2.init({ onLoad: 'check-sso', checkLoginIframeInterval: 1 });
+  var promise = p2.init({ onLoad: 'check-sso', checkLoginIframeInterval: 1 });
   if (!promise.then) {
     promise.then = promise.success;
   }
   promise.then(function () {
-    if (ph2.authenticated) {
+    if (p2.authenticated) {
       authenticated();
     } else {
       notAuthenticated();
@@ -94,4 +99,4 @@ window.onload = function () {
   });
 };
 
-ph2.onAuthLogout = notAuthenticated;
+p2.onAuthLogout = notAuthenticated;
