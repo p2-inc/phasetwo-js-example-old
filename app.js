@@ -16,6 +16,9 @@
  */
 import Phasetwo from 'phasetwo-js';
 
+// Update these to match your Keycloak server and client
+// or
+// Place keycloak.json config file in web root and pass no config to Phasetwo()
 const config = {
   realm: 'quickstart',
   url: 'http://localhost:8180/auth/',
