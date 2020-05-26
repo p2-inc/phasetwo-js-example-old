@@ -18,26 +18,22 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Keycloak Example App</title>
+    <title>Phase Two Example App</title>
 
     <link rel="stylesheet" type="text/css" href="styles.css" />
 
-    <!-- <script src="keycloak.js"></script> -->
-    <!-- <script src="phasetwo-js.browser.js"></script> -->
-    <!-- <script src="app.js"></script> -->
     <script src="bundle.js"></script>
   </head>
 
   <body>
     <div class="wrapper">
-      <div>NODE</div>
       <div id="not-authenticated" class="menu">
-        <button name="loginBtn" onclick="ph2.login()">Login</button>
+        <button name="loginBtn" onclick="p2.login()">Login</button>
       </div>
 
       <div id="authenticated" class="menu">
-        <button name="logoutBtn" onclick="ph2.logout()">Logout</button>
-        <button name="accountBtn" onclick="ph2.accountManagement()">Account</button>
+        <button name="logoutBtn" onclick="p2.logout()">Logout</button>
+        <button name="accountBtn" onclick="p2.accountManagement()">Account</button>
       </div>
 
       <div class="content">
