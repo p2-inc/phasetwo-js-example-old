@@ -2,6 +2,10 @@
   "name": "phasetwo-test",
   "version": "1.0.0",
   "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/p2-inc/phasetwo-test.git"
+  },
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.config.js",
@@ -11,7 +15,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "phasetwo-js": "git://github.com/p2-inc/phasetwo-js.git"
   },
   "devDependencies": {
     "webpack": "^4.43.0",
