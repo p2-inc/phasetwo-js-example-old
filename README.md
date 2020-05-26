@@ -8,6 +8,6 @@ It serves the web application using Node.js and Express.
 
 ```bash
 $ npm install     # install npm dependencies
-$ npm build       # build JS bundle with Webpack
+$ npm run build   # build JS bundle with Webpack
 $ npm start       # start web server
 ```
