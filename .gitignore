@@ -13,3 +13,4 @@ pid.txt
 tmp/
 .vscode/
 dist/
+static/bundle.js
