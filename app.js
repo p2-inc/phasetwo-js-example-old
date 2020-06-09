@@ -63,7 +63,7 @@ window.request = function request(endpoint) {
       if (req.readyState == 4) {
         if (req.status == 200) {
           output.innerHTML =
-            'Message: <pre>' + JSON.stringify(JSON.parse(req.responseText).message, null, 2) + '</pre>';
+            'Message (from server): <pre>' + JSON.stringify(JSON.parse(req.responseText).message, null, 2) + '</pre>';
         } else if (req.status == 0) {
           output.innerHTML = '<span class="error">Request failed</span>';
         } else {
@@ -100,6 +100,18 @@ window.onload = function () {
 
     document.body.style.display = 'block';
   });
+};
+
+// Requests account information via API request directly to Keycloak server
+// rather than through intermediate service layer
+window.getAccount = async function () {
+  const output = document.getElementById('message');
+  try {
+    const ret = await p2.accountApi().get(p2.token);
+    output.innerHTML = 'Message (from client): <pre>' + JSON.stringify(ret, null, 2) + '</pre>';
+  } catch (e) {
+    output.innerHTML = '<span class="error">Request failed:' + JSON.stringify(ret, null, 2) + '</span>';
+  }
 };
 
 p2.onAuthLogout = notAuthenticated;
