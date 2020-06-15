@@ -28,11 +28,7 @@ const config = {
   confidentialPort: 0,
 };
 
-const p2 = new Phasetwo({
-  ...config,
-  secretOption: 'hello',
-  augment: 'alsoHello',
-});
+const p2 = new Phasetwo(config);
 
 // exposing globally for ease of console debugging
 window.p2 = p2;
