@@ -105,8 +105,9 @@ window.getAccount = async function () {
   try {
     const ret = await p2.accountApi().get(p2.token);
     output.innerHTML = 'Message (from client): <pre>' + JSON.stringify(ret, null, 2) + '</pre>';
-  } catch (e) {
-    output.innerHTML = '<span class="error">Request failed:' + JSON.stringify(ret, null, 2) + '</span>';
+  } catch (err) {
+    const message = err.message ? err.message : err;
+    output.innerHTML = '<span class="error">Request failed:' + message + '</span>';
   }
 };
 
