@@ -77,6 +77,10 @@ hr {
   font-weight: bold;
 }
 
+.content .message pre {
+  white-space: pre-wrap;
+}
+
 .wrapper {
   margin: 0 auto;
   width: 640px;
